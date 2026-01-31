@@ -27,5 +27,5 @@ O objetivo do projeto é praticar conceitos fundamentais de programação como:
 git clone https://github.com/ManoelJmb1990/GitHub_User_Activity.git
 cd GitHub_User_Activity
 
-
+--------------------------------------------------------------------
 https://roadmap.sh/projects/github-user-activity

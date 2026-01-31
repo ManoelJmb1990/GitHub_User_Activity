@@ -31,18 +31,41 @@ def main():
             # Converte bytes → string → objeto Python
             events = json.loads(data.decode("utf-8"))
 
+            if not events:
+                print("Nenhuma atividade pública encontrada para este usuário")
+                return
+
             #imprime o json cru
-            print("Eventos encontrados:")
+            print("Atividades recentes:")
             print("-" * 40)
             for event in events:
-                print("Tipo:", event["type"])
-                print("Repositório:", event["repo"]["name"])
-                print("-" * 40)
+                event_type = event["type"]
+                repo_name = event["repo"]["name"]
 
+                if event_type == "PushEvent":
+                    commits = event["payload"]["commit"]
+                    quantidade = len(commits)
+                    print(f"Enviou {quantidade} commits para {repo_name}")
 
+                elif event_type == "WatchEvent":
+                    print(f"Deu star em {repo_name}")
+
+                elif event_type == "IssuesEvent":
+                    print(f"Abríu uma issue em {repo_name}")
+
+                else:
+                    # Evento que não estamos tratando ainda
+                    print(f"Realizou {event_type} em {repo_name}")
+
+    except urllib.error.HTTPError as error:
+        if error.code == 404:
+            print("Usuário não encontrado no GitHub")
+        else:
+            print("Erro HTTP ao acessar a API do GitHub.")
+            print("Código:", error.code)
 
     except Exception as error:
-        print("Erro ao acessar a API do GitHub")
+        print("Erro inesperado ao executar o programa.")
         print(error)
 
 # Garante que o main só roda quando o arquivo é executado diretamente
