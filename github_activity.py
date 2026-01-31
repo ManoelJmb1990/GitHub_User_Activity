@@ -43,7 +43,7 @@ def main():
                 repo_name = event["repo"]["name"]
 
                 if event_type == "PushEvent":
-                    commits = event["payload"]["commit"]
+                    commits = event["payload"].get("commits", [])
                     quantidade = len(commits)
                     print(f"Enviou {quantidade} commits para {repo_name}")
 
