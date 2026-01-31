@@ -32,7 +32,14 @@ def main():
             events = json.loads(data.decode("utf-8"))
 
             #imprime o json cru
-            print(events)
+            print("Eventos encontrados:")
+            print("-" * 40)
+            for event in events:
+                print("Tipo:", event["type"])
+                print("Repositório:", event["repo"]["name"])
+                print("-" * 40)
+
+
 
     except Exception as error:
         print("Erro ao acessar a API do GitHub")
